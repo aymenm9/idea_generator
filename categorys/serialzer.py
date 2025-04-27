@@ -15,4 +15,8 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
+        extra_kwargs = {
+            'user': {'read_only': True},
+            'prompt': {'required': False, 'allow_blank': True},
+        }
         # fields = ['id', 'name', 'user']

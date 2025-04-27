@@ -46,3 +46,23 @@ class CategoryView(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+    def perform_destroy(self, instance):
+        instance.delete()
+
+class IdeaView(APIView):
+    queryset = Idea.objects.all()
+    serializer_class = IdeaSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Idea.objects.filter(user=user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+    def perform_destroy(self, instance):
+        instance.delete()
